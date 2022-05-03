@@ -1,0 +1,47 @@
+﻿@model CalculatorRequestDTO;
+@using Tax1._0.WebApp.DTOs;
+
+@{
+    ViewData["Title"] = "CalucalteTax";
+   int defaultValue = 0;
+
+}
+
+<h3>Oblicz podatek za bieżący miesiąc</h3>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="CalculateTax">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>            
+            <div class="form-group">
+                <label asp-for="currentSalaryPLN" class="control-label"></label>
+                <input asp-for="currentSalaryPLN" class="form-control" value = "@defaultValue"/>
+                <span asp-validation-for="currentSalaryPLN" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="currentSalaryEUR" class="control-label"></label>
+                <input asp-for="currentSalaryEUR" class="form-control" value = "@defaultValue" />
+                <span asp-validation-for="currentSalaryEUR" class="text-danger"></span>
+            </div>  
+            <div class="form-group">
+                <label asp-for="currentSalaryUSD" class="control-label"></label>
+                <input asp-for="currentSalaryUSD" class="form-control" value = "@defaultValue"/>
+                <span asp-validation-for="currentSalaryUSD" class="text-danger"></span>
+            </div> 
+              <div class="form-group">
+                <label asp-for="currentSalaryGBP" class="control-label"></label>
+                <input asp-for="currentSalaryGBP" class="form-control" value = "@defaultValue"/>
+                <span asp-validation-for="currentSalaryGBP" class="text-danger"></span>
+            </div>  
+            <div class="form-group mt-2">
+                <input type="submit" value="Oblicz" class="btn btn-primary" /> <a class="btn btn-danger" asp-action="Index">Anuluj</a>
+            </div>
+
+
+        </form>
+    </div>
+</div>
+
+    <h5>Obliczony podatek: @ViewBag.Tax &nbspPLN</h5>
+
+

@@ -1,0 +1,79 @@
+﻿@using System.Globalization
+@using Tax1._0.WebApp.Services
+@model IEnumerable<Tax1._0.WebApp.Models.Salary>
+@inject TaxService _taxService
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Podsumowanie roku podatkowego</h1>
+
+
+<table class="table">
+    <thead>
+        <tr>            
+            <th>
+                @Html.DisplayNameFor(model => model.Month)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SalaryAmount) &nbspbrutto w PLN
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Tax) &nbspw PLN
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            if (Model != null)
+            {
+             @foreach (var item in Model) {
+                 string monthName = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(item.Month);
+
+        <tr>            
+            <td>                           
+                @Html.DisplayFor(modelItem => monthName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SalaryAmount)
+            </td>
+            <td>@Html.DisplayFor(modelItem => item.Tax)
+                
+            </td>
+                        @if (item.ModifyQuake || item.Month == DateTime.Now.Month)
+                        {
+                            <td>
+                                <a asp-action="Edit" asp-route-id="@item.Id">Zmień</a>   
+                            </td>
+                        }
+        </tr>   
+            }
+        }
+        <tr>
+        </tr>
+        <tr>
+        <td></td>
+        <td> <H6>Skumulowane wynagrodzenie w PLN </H6>
+        </td>
+        <td>
+        <H6>Skumulowany podatek w PLN </H6>
+        </td>
+        </tr>
+        <tr>
+        <td></td>
+        <td> <H6>@ViewBag.TotalSalary PLN</H6>
+        </td>
+        <td>
+        <H6>@ViewBag.TotalTax PLN</H6>
+        </td>
+        </tr>
+
+}
+    </tbody>
+</table>
+ <div class="form-group mt-2">
+                 <a class="btn btn-danger" asp-action="CalculateTax">Oblicz podatek</a>
+            </div>
+<H7>* Uzupełnij otrzymane  w poprzednich miesiącach wynagrodzenie brutto - aplikacja obliczy należny podatek.
+      Jeżeli otrzymałeś/aś wypłatę w obcej walucie przejdź do opcji "Oblicz podatek".
