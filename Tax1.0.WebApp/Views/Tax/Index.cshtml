@@ -4,6 +4,13 @@
 @inject TaxService _taxService
 @{
     ViewData["Title"] = "Index";
+    bool allFullfilled = false;
+    if (Model.Any())
+    {
+    allFullfilled = Model.All(e => e.Confimated == true);
+
+    }
+
 }
 
 <h1>Podsumowanie roku podatkowego</h1>
@@ -72,8 +79,12 @@
 }
     </tbody>
 </table>
- <div class="form-group mt-2">
+@if(allFullfilled){
+    <div class="form-group mt-2">
                  <a class="btn btn-danger" asp-action="CalculateTax">Oblicz podatek</a>
             </div>
+
+}
+ 
 <H7>* Uzupełnij otrzymane  w poprzednich miesiącach wynagrodzenie brutto - aplikacja obliczy należny podatek.
       Jeżeli otrzymałeś/aś wypłatę w obcej walucie przejdź do opcji "Oblicz podatek".
